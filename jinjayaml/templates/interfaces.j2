@@ -4,3 +4,12 @@
 {#   description <description>                       #}
 {#   switchport mode <mode>                          #}
 {# (if access port) switchport access vlan <vlan>    #}
+
+{% for intf, intfconfig in interfaces.items() %}
+interface {{ intf }}
+description {{ intfconfig.descr }}
+switchport mode {{ intfconfig.mode }}
+{% if intfconfig.mode == "access" %}
+switchport access vlan {{ intfconfig.vlan }}
+{% endif %}
+{% endfor %}

@@ -5,9 +5,23 @@
 {# vlan <vlanID>          #}
 {# name <vlanname>        #}
 
+{% if vlans is defined %}
+{% for vlan in vlans %}
+vlan {{ vlan.id }}
+name {{ vlan.name }}
+{% endfor %}
+{% endif %}
 
 {# l3 vlans                            #}
 {# interface vlan <vlanID>             #}
 {# description <description>           #}
 {# ip address <host_ip>                #}
 {# ip virtual-router address <vip>     #}
+{% if svis is defined %}
+{% for svi in svis %}
+interface vlan {{ svi.id }}
+description {{ svi.desc }}
+ip address {{ svi.host_ip }}
+ip virtual-router address {{ svi.vip }}
+{% endfor %}
+{% endif %}
